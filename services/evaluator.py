@@ -4,9 +4,9 @@ from services.gemini_service import model
 
 def evaluate_reply(email, generated_reply):
     prompt = f"""
-You are an AI evaluator.
+You are an expert AI evaluator.
 
-Evaluate the generated email reply.
+Your task is to evaluate how well the generated email reply responds to the original email.
 
 Original Email:
 {email}
@@ -14,16 +14,37 @@ Original Email:
 Generated Reply:
 {generated_reply}
 
-Return ONLY valid JSON.
+Evaluate the reply using the following criteria:
 
-Format:
+1. Accuracy (0-100)
+- Does the reply correctly answer the sender's request?
+- Does it avoid incorrect information?
+- Scoring Guide:
+  - 90-100 = Excellent
+  - 80-89 = Good
+  - 60-79 = Fair
+  - Below 60 = Poor
+
+2. Tone
+Describe the tone in one sentence.
+
+3. Completeness
+State whether the reply addresses all important points.
+
+4. Reason
+Explain why you assigned the score.
+
+5. Suggestions
+Suggest improvements if necessary.
+
+Return ONLY valid JSON in the following format:
 
 {{
-    "accuracy": 0,
-    "tone": "",
-    "completeness": "",
-    "reason": "",
-    "suggestions": ""
+    "accuracy": 95,
+    "tone": "Professional",
+    "completeness": "Complete",
+    "reason": "The reply fully addresses the user's request.",
+    "suggestions": "No major improvements needed."
 }}
 """
 
